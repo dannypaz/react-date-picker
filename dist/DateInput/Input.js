@@ -24,11 +24,18 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 /* eslint-disable jsx-a11y/no-autofocus */
+var isEdgeLegacy = typeof window !== 'undefined' && 'navigator' in window && navigator.userAgent.match(/ Edge\/1/);
+
 function onFocus(event) {
   var target = event.target;
-  requestAnimationFrame(function () {
-    return target.select();
-  });
+
+  if (isEdgeLegacy) {
+    requestAnimationFrame(function () {
+      return target.select();
+    });
+  } else {
+    target.select();
+  }
 }
 
 function updateInputWidthOnFontLoad(element) {
